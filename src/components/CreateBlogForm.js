@@ -1,7 +1,7 @@
 import React from 'react'
 import blogService from "../services/blogs";
 
-const createBlog = async (event, title, author, url, blogs, setTitle, setAuthor, setUrl, setBlogs, setErrorMessage) => {
+const createBlog = async (event, title, author, url, blogs, setTitle, setAuthor, setUrl, setBlogs, setErrorMessage, setMessageClass) => {
     event.preventDefault()
 
     const newBlog = await blogService.create({
@@ -16,8 +16,14 @@ const createBlog = async (event, title, author, url, blogs, setTitle, setAuthor,
         setTitle('')
         setAuthor('')
         setUrl('')
-    } catch (exception) {
+        setMessageClass("message")
         setErrorMessage(`${newBlog.title} was created!`)
+        setTimeout(() => {
+            setErrorMessage(null)
+        }, 5000)
+    } catch (exception) {
+        setMessageClass("error")
+        setErrorMessage('Something went wrong!')
         setTimeout(() => {
             setErrorMessage(null)
         }, 5000)
@@ -25,11 +31,11 @@ const createBlog = async (event, title, author, url, blogs, setTitle, setAuthor,
 }
 
 
-const CreatBlogForm = ({title, author, url, blogs, setTitle, setAuthor, setUrl, setBlogs, setErrorMessage}) => (
+const CreatBlogForm = ({title, author, url, blogs, setTitle, setAuthor, setUrl, setBlogs, setErrorMessage, setMessageClass}) => (
     <div>
         <h2>Create New</h2>
         <form
-            onSubmit={(e) => createBlog(e, title, author, url, blogs, setTitle, setAuthor, setUrl, setBlogs, setErrorMessage)}>
+            onSubmit={(e) => createBlog(e, title, author, url, blogs, setTitle, setAuthor, setUrl, setBlogs, setErrorMessage, setMessageClass)}>
             <div>
                 title
                 <input

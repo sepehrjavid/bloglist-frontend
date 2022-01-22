@@ -1,7 +1,8 @@
 import React from 'react'
 import loginService from '../services/login'
+import blogService from "../services/blogs";
 
-const handleLogin = async (event, username, password, setUsername, setPassword, setUser, setErrorMessage) => {
+const handleLogin = async (event, username, password, setUsername, setPassword, setUser, setErrorMessage, setMessageClass) => {
     event.preventDefault()
 
     try {
@@ -13,10 +14,12 @@ const handleLogin = async (event, username, password, setUsername, setPassword, 
             'loggedBlogAppUser', JSON.stringify(user)
         )
 
+        blogService.setToken(user.token)
         setUser(user)
         setUsername('')
         setPassword('')
     } catch (exception) {
+        setMessageClass("error")
         setErrorMessage('Wrong credentials')
         setTimeout(() => {
             setErrorMessage(null)
@@ -24,8 +27,9 @@ const handleLogin = async (event, username, password, setUsername, setPassword, 
     }
 }
 
-const LoginForm = ({username, password, setUsername, setPassword, setUser, setErrorMessage}) => (
-    <form onSubmit={(e) => handleLogin(e, username, password, setUsername, setPassword, setUser, setErrorMessage)}>
+const LoginForm = ({username, password, setUsername, setPassword, setUser, setErrorMessage, setMessageClass}) => (
+    <form
+        onSubmit={(e) => handleLogin(e, username, password, setUsername, setPassword, setUser, setErrorMessage, setMessageClass)}>
         <div>
             username
             <input

@@ -15,6 +15,7 @@ const App = () => {
     const [url, setUrl] = useState('')
     const [user, setUser] = useState(null)
     const [errorMessage, setErrorMessage] = useState(null)
+    const [messageClass, setMessageClass] = useState(".error")
 
     useEffect(() => {
         async function fetchBlogs() {
@@ -39,10 +40,10 @@ const App = () => {
         <div>
             <h2>blogs</h2>
 
-            <Notification message={errorMessage}/>
+            <Notification message={errorMessage} messageClass={messageClass}/>
 
             {user === null ?
-                LoginForm({username, password, setUsername, setPassword, setUser, setErrorMessage}) :
+                LoginForm({username, password, setUsername, setPassword, setUser, setErrorMessage, setMessageClass}) :
                 UserDetail({user, setUser})
             }
 
@@ -55,7 +56,8 @@ const App = () => {
                 setAuthor,
                 setUrl,
                 setBlogs,
-                setErrorMessage
+                setErrorMessage,
+                setMessageClass
             })}
 
             {user !== null && blogs.map(blog =>
