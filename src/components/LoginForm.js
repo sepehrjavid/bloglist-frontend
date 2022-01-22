@@ -9,6 +9,10 @@ const handleLogin = async (event, username, password, setUsername, setPassword, 
             username, password,
         })
 
+        window.localStorage.setItem(
+            'loggedBlogAppUser', JSON.stringify(user)
+        )
+
         setUser(user)
         setUsername('')
         setPassword('')

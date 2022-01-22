@@ -18,6 +18,14 @@ const App = () => {
         )
     }, [])
 
+    useEffect(() => {
+        const loggedUserJSON = window.localStorage.getItem('loggedBlogAppUser')
+        if (loggedUserJSON) {
+            const user = JSON.parse(loggedUserJSON)
+            setUser(user)
+        }
+    }, [])
+
     return (
         <div>
             <h2>blogs</h2>
@@ -26,7 +34,7 @@ const App = () => {
 
             {user === null ?
                 LoginForm({username, password, setUsername, setPassword, setUser, setErrorMessage}) :
-                UserDetail({user})
+                UserDetail({user, setUser})
             }
 
             {user !== null && blogs.map(blog =>
