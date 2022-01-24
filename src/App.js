@@ -11,9 +11,6 @@ const App = () => {
     const [blogs, setBlogs] = useState([])
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const [title, setTitle] = useState('')
-    const [author, setAuthor] = useState('')
-    const [url, setUrl] = useState('')
     const [user, setUser] = useState(null)
     const [errorMessage, setErrorMessage] = useState(null)
     const [messageClass, setMessageClass] = useState(".error")
@@ -38,35 +35,6 @@ const App = () => {
         }
     }, [])
 
-    const addBlog = async (event) => {
-        event.preventDefault()
-
-        try {
-            const newBlog = await blogService.create({
-                title: title,
-                url: url,
-                author: author
-            })
-
-            blogFormRef.current.toggleVisibility()
-            setBlogs(blogs.concat(newBlog))
-            setTitle('')
-            setAuthor('')
-            setUrl('')
-            setMessageClass("message")
-            setErrorMessage(`${newBlog.title} was created!`)
-            setTimeout(() => {
-                setErrorMessage(null)
-            }, 5000)
-        } catch (exception) {
-            setMessageClass("error")
-            setErrorMessage('Something went wrong!')
-            setTimeout(() => {
-                setErrorMessage(null)
-            }, 5000)
-        }
-    }
-
 
     return (
         <div>
@@ -80,8 +48,8 @@ const App = () => {
             }
 
             {user !== null && <Togglable buttonLabel="Create New Blog" ref={blogFormRef}>
-                <CreatBlogForm addBlog={addBlog} setUrl={setUrl} setAuthor={setAuthor} setTitle={setTitle} title={title}
-                               author={author} url={url}/>
+                <CreatBlogForm blogFormRef={blogFormRef} setBlogs={setBlogs} blogs={blogs}
+                               setErrorMessage={setErrorMessage} setMessageClass={setMessageClass}/>
             </Togglable>}
 
 
