@@ -1,41 +1,11 @@
 import React from 'react'
-import blogService from "../services/blogs";
-
-const createBlog = async (event, title, author, url, blogs, setTitle, setAuthor, setUrl, setBlogs, setErrorMessage, setMessageClass) => {
-    event.preventDefault()
-
-    const newBlog = await blogService.create({
-        title: title,
-        url: url,
-        author: author
-    })
-
-    try {
-
-        setBlogs(blogs.concat(newBlog))
-        setTitle('')
-        setAuthor('')
-        setUrl('')
-        setMessageClass("message")
-        setErrorMessage(`${newBlog.title} was created!`)
-        setTimeout(() => {
-            setErrorMessage(null)
-        }, 5000)
-    } catch (exception) {
-        setMessageClass("error")
-        setErrorMessage('Something went wrong!')
-        setTimeout(() => {
-            setErrorMessage(null)
-        }, 5000)
-    }
-}
 
 
-const CreatBlogForm = ({title, author, url, blogs, setTitle, setAuthor, setUrl, setBlogs, setErrorMessage, setMessageClass}) => (
+const CreatBlogForm = ({addBlog, setTitle, setAuthor, setUrl, title, author, url}) => (
     <div>
         <h2>Create New</h2>
         <form
-            onSubmit={(e) => createBlog(e, title, author, url, blogs, setTitle, setAuthor, setUrl, setBlogs, setErrorMessage, setMessageClass)}>
+            onSubmit={addBlog}>
             <div>
                 title
                 <input
@@ -67,5 +37,6 @@ const CreatBlogForm = ({title, author, url, blogs, setTitle, setAuthor, setUrl, 
         </form>
     </div>
 )
+
 
 export default CreatBlogForm

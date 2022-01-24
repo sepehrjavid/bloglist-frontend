@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
 import LoginForm from "./components/LoginForm";
 import UserDetail from "./components/UserDetail";
 import Notification from "./components/Notification";
+import Togglable from "./components/Togglable";
 import CreatBlogForm from "./components/CreateBlogForm";
 
 const App = () => {
@@ -16,6 +17,8 @@ const App = () => {
     const [user, setUser] = useState(null)
     const [errorMessage, setErrorMessage] = useState(null)
     const [messageClass, setMessageClass] = useState(".error")
+
+    const blogFormRef = useRef()
 
     useEffect(() => {
         async function fetchBlogs() {
@@ -35,6 +38,35 @@ const App = () => {
         }
     }, [])
 
+    const addBlog = async (event) => {
+        event.preventDefault()
+
+        try {
+            const newBlog = await blogService.create({
+                title: title,
+                url: url,
+                author: author
+            })
+
+            blogFormRef.current.toggleVisibility()
+            setBlogs(blogs.concat(newBlog))
+            setTitle('')
+            setAuthor('')
+            setUrl('')
+            setMessageClass("message")
+            setErrorMessage(`${newBlog.title} was created!`)
+            setTimeout(() => {
+                setErrorMessage(null)
+            }, 5000)
+        } catch (exception) {
+            setMessageClass("error")
+            setErrorMessage('Something went wrong!')
+            setTimeout(() => {
+                setErrorMessage(null)
+            }, 5000)
+        }
+    }
+
 
     return (
         <div>
@@ -47,18 +79,11 @@ const App = () => {
                 UserDetail({user, setUser})
             }
 
-            {user !== null && CreatBlogForm({
-                title,
-                author,
-                url,
-                blogs,
-                setTitle,
-                setAuthor,
-                setUrl,
-                setBlogs,
-                setErrorMessage,
-                setMessageClass
-            })}
+            {user !== null && <Togglable buttonLabel="Create New Blog" ref={blogFormRef}>
+                <CreatBlogForm addBlog={addBlog} setUrl={setUrl} setAuthor={setAuthor} setTitle={setTitle} title={title}
+                               author={author} url={url}/>
+            </Togglable>}
+
 
             {user !== null && blogs.map(blog =>
                 <Blog key={blog.id} blog={blog}/>
