@@ -32,8 +32,8 @@ const BlogDetailed = ({blog, swap, setBlogLikes, blogLikes, removeBlog}) => {
                 {blog.title}
                 <button onClick={swap}>Hide</button>
             </p>
-            <p>{blog.url}</p>
-            <p>
+            <p id="url">{blog.url}</p>
+            <p id="likes">
                 Likes {blogLikes}
                 <button onClick={like}>Like</button>
             </p>

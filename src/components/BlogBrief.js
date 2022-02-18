@@ -11,7 +11,7 @@ const BlogBrief = ({blog, swap}) => {
 
     return (
         <div style={blogStyle}>
-            {blog.title}
+            {blog.title} by {blog.author}
             <button onClick={swap}>View</button>
         </div>
     )
