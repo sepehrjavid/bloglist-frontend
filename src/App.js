@@ -58,6 +58,20 @@ const App = () => {
     }
 
 
+    const likeBlog = async (blog) => {
+        const newBlog = {
+            user: blog.user.id,
+            likes: blog.likes + 1,
+            author: blog.author,
+            url: blog.url,
+            title: blog.title
+        }
+        await blogService.update(newBlog, blog.id)
+        blog.likes++
+        setBlogs([...blogs])
+    }
+
+
     return (
         <div>
             <h2>blogs</h2>
@@ -76,7 +90,7 @@ const App = () => {
 
 
             {user !== null && blogs.sort(compare).map(blog =>
-                <Blog key={blog.id} blog={blog} removeBlog={removeBlog}/>
+                <Blog key={blog.id} blog={blog} removeBlog={removeBlog} likeBlog={likeBlog}/>
             )}
         </div>
     )

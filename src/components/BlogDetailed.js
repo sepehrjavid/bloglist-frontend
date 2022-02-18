@@ -1,9 +1,8 @@
 import React from "react"
-import blogService from "../services/blogs"
 import PropTypes from "prop-types"
 
 
-const BlogDetailed = ({blog, swap, setBlogLikes, blogLikes, removeBlog}) => {
+const BlogDetailed = ({blog, swap, removeBlog, likeBlog}) => {
 
     const blogStyle = {
         paddingTop: 10,
@@ -13,19 +12,6 @@ const BlogDetailed = ({blog, swap, setBlogLikes, blogLikes, removeBlog}) => {
         marginBottom: 5
     }
 
-    const like = async () => {
-        const newBlog = {
-            user: blog.user.id,
-            likes: blogLikes + 1,
-            author: blog.author,
-            url: blog.url,
-            title: blog.title
-        }
-        const updatedBlog = await blogService.update(newBlog, blog.id)
-        setBlogLikes(updatedBlog.likes)
-    }
-
-
     return (
         <div style={blogStyle}>
             <p>
@@ -34,8 +20,8 @@ const BlogDetailed = ({blog, swap, setBlogLikes, blogLikes, removeBlog}) => {
             </p>
             <p id="url">{blog.url}</p>
             <p id="likes">
-                Likes {blogLikes}
-                <button onClick={like}>Like</button>
+                Likes {blog.likes}
+                <button onClick={() => likeBlog(blog)} id="likeButton">Like</button>
             </p>
             <p>{blog.author}</p>
             <button onClick={() => removeBlog(blog)}>Remove</button>

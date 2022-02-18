@@ -13,10 +13,11 @@ describe('<Blog />', () => {
         url: "http://sep.com",
         author: "me"
     }
+    const likeHandler = jest.fn()
 
     beforeEach(() => {
         container = render(
-            <Blog blog={blog} removeBlog={jest.fn()}/>
+            <Blog blog={blog} removeBlog={jest.fn()} likeBlog={likeHandler}/>
         ).container
     })
 
@@ -49,5 +50,17 @@ describe('<Blog />', () => {
 
         const element = container.querySelector("#likes")
         expect(element).not.toBeNull()
+    })
+
+    test('like pressed twice', () => {
+        const button = screen.getByText("View")
+        userEvent.click(button)
+
+        const likeButton = container.querySelector("#likeButton")
+
+        userEvent.click(likeButton)
+        userEvent.click(likeButton)
+
+        expect(likeHandler.mock.calls).toHaveLength(2)
     })
 })
