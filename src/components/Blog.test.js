@@ -30,8 +30,24 @@ describe('<Blog />', () => {
         expect(element).toBeNull()
     })
 
-    test('does not have url', () => {
+    test('does not have likes', () => {
         const element = container.querySelector("#likes")
         expect(element).toBeNull()
+    })
+
+    test('has url after button clicked', () => {
+        const button = screen.getByText("View")
+        userEvent.click(button)
+
+        const element = container.querySelector("#url")
+        expect(element).not.toBeNull()
+    })
+
+    test('has likes after button clicked', () => {
+        const button = screen.getByText("View")
+        userEvent.click(button)
+
+        const element = container.querySelector("#likes")
+        expect(element).not.toBeNull()
     })
 })
