@@ -35,6 +35,16 @@ const App = () => {
         }
     }, [])
 
+    const compare = (a, b) => {
+        if (a.likes < b.likes) {
+            return 1;
+        }
+        if (a.likes > b.likes) {
+            return -1;
+        }
+        return 0;
+    }
+
 
     return (
         <div>
@@ -53,7 +63,7 @@ const App = () => {
             </Togglable>}
 
 
-            {user !== null && blogs.map(blog =>
+            {user !== null && blogs.sort(compare).map(blog =>
                 <Blog key={blog.id} blog={blog}/>
             )}
         </div>
