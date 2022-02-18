@@ -1,8 +1,7 @@
 import React, {useState} from "react"
-import blogService from "../services/blogs"
 
 
-const CreatBlogForm = ({blogFormRef, setBlogs, blogs, setMessageClass, setErrorMessage}) => {
+const CreatBlogForm = ({blogFormRef, setBlogs, blogs, setMessageClass, setErrorMessage, dummyCreateForTest}) => {
     const [title, setTitle] = useState("")
     const [author, setAuthor] = useState("")
     const [url, setUrl] = useState("")
@@ -11,30 +10,35 @@ const CreatBlogForm = ({blogFormRef, setBlogs, blogs, setMessageClass, setErrorM
     const addBlog = async (event) => {
         event.preventDefault()
 
-        try {
-            const newBlog = await blogService.create({
+        // try {
+            dummyCreateForTest({
                 title: title,
                 url: url,
                 author: author
             })
+            // const newBlog = await blogService.create({
+            //     title: title,
+            //     url: url,
+            //     author: author
+            // })
 
-            blogFormRef.current.toggleVisibility()
-            setBlogs(blogs.concat(newBlog))
-            setTitle("")
-            setAuthor("")
-            setUrl("")
-            setMessageClass("message")
-            setErrorMessage(`${newBlog.title} was created!`)
-            setTimeout(() => {
-                setErrorMessage(null)
-            }, 5000)
-        } catch (exception) {
-            setMessageClass("error")
-            setErrorMessage("Something went wrong!")
-            setTimeout(() => {
-                setErrorMessage(null)
-            }, 5000)
-        }
+        //     blogFormRef.current.toggleVisibility()
+        //     setBlogs(blogs.concat(newBlog))
+        //     setTitle("")
+        //     setAuthor("")
+        //     setUrl("")
+        //     setMessageClass("message")
+        //     setErrorMessage(`${newBlog.title} was created!`)
+        //     setTimeout(() => {
+        //         setErrorMessage(null)
+        //     }, 5000)
+        // } catch (exception) {
+        //     setMessageClass("error")
+        //     setErrorMessage("Something went wrong!")
+        //     setTimeout(() => {
+        //         setErrorMessage(null)
+        //     }, 5000)
+        // }
     }
 
     return (
@@ -45,6 +49,7 @@ const CreatBlogForm = ({blogFormRef, setBlogs, blogs, setMessageClass, setErrorM
                 <div>
                     title
                     <input
+                        id="titleInput"
                         type="text"
                         value={title}
                         name="Title"
@@ -54,6 +59,7 @@ const CreatBlogForm = ({blogFormRef, setBlogs, blogs, setMessageClass, setErrorM
                 <div>
                     author
                     <input
+                        id="authorInput"
                         type="text"
                         value={author}
                         name="Author"
@@ -63,13 +69,14 @@ const CreatBlogForm = ({blogFormRef, setBlogs, blogs, setMessageClass, setErrorM
                 <div>
                     url
                     <input
+                        id="urlInput"
                         type="text"
                         value={url}
                         name="Url"
                         onChange={({target}) => setUrl(target.value)}
                     />
                 </div>
-                <button type="submit">Create</button>
+                <button type="submit" id="submitInput">Create</button>
             </form>
         </div>
     )
