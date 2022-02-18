@@ -4,6 +4,7 @@ import BlogBrief from "./BlogBrief";
 
 const Blog = ({blog}) => {
     const [detailed, setDetailed] = useState(false)
+    const [blogLikes, setBlogLikes] = useState(blog.likes)
 
     const swap = () => {
         setDetailed(!detailed)
@@ -12,7 +13,7 @@ const Blog = ({blog}) => {
 
     return (
         <div>
-            {detailed? BlogDetailed({blog, swap}) : BlogBrief({blog, swap})}
+            {detailed? BlogDetailed({blog, swap, setBlogLikes, blogLikes}) : BlogBrief({blog, swap})}
         </div>
     )
 }
