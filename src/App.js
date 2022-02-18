@@ -46,6 +46,15 @@ const App = () => {
     }
 
 
+    const removeBlog = async (blog) => {
+        await blogService.remove(blog.id)
+        const newBlogs = blogs.filter((value) => {
+            return value.id !== blog.id
+        })
+        setBlogs(newBlogs)
+    }
+
+
     return (
         <div>
             <h2>blogs</h2>
@@ -64,7 +73,7 @@ const App = () => {
 
 
             {user !== null && blogs.sort(compare).map(blog =>
-                <Blog key={blog.id} blog={blog}/>
+                <Blog key={blog.id} blog={blog} removeBlog={removeBlog}/>
             )}
         </div>
     )

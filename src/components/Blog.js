@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import BlogDetailed from "./BlogDetailed";
 import BlogBrief from "./BlogBrief";
 
-const Blog = ({blog}) => {
+const Blog = ({blog, removeBlog}) => {
     const [detailed, setDetailed] = useState(false)
     const [blogLikes, setBlogLikes] = useState(blog.likes)
 
@@ -13,7 +13,7 @@ const Blog = ({blog}) => {
 
     return (
         <div>
-            {detailed? BlogDetailed({blog, swap, setBlogLikes, blogLikes}) : BlogBrief({blog, swap})}
+            {detailed? BlogDetailed({blog, swap, setBlogLikes, blogLikes, removeBlog}) : BlogBrief({blog, swap})}
         </div>
     )
 }

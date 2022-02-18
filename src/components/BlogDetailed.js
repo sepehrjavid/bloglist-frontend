@@ -2,7 +2,7 @@ import React from 'react'
 import blogService from "../services/blogs";
 
 
-const BlogDetailed = ({blog, swap, setBlogLikes, blogLikes}) => {
+const BlogDetailed = ({blog, swap, setBlogLikes, blogLikes, removeBlog}) => {
 
     const blogStyle = {
         paddingTop: 10,
@@ -24,6 +24,7 @@ const BlogDetailed = ({blog, swap, setBlogLikes, blogLikes}) => {
         setBlogLikes(updatedBlog.likes)
     }
 
+
     return (
         <div style={blogStyle}>
             <p>
@@ -36,7 +37,7 @@ const BlogDetailed = ({blog, swap, setBlogLikes, blogLikes}) => {
                 <button onClick={like}>Like</button>
             </p>
             <p>{blog.author}</p>
-
+            <button onClick={() => removeBlog(blog)}>Remove</button>
         </div>
     )
 }
