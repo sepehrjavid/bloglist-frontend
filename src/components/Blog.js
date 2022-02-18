@@ -1,6 +1,6 @@
-import React, {useState} from 'react'
-import BlogDetailed from "./BlogDetailed";
-import BlogBrief from "./BlogBrief";
+import React, {useState} from "react"
+import BlogDetailed from "./BlogDetailed"
+import BlogBrief from "./BlogBrief"
 
 const Blog = ({blog, removeBlog}) => {
     const [detailed, setDetailed] = useState(false)

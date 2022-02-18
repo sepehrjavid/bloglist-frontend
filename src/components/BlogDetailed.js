@@ -1,5 +1,6 @@
-import React from 'react'
-import blogService from "../services/blogs";
+import React from "react"
+import blogService from "../services/blogs"
+import PropTypes from "prop-types"
 
 
 const BlogDetailed = ({blog, swap, setBlogLikes, blogLikes, removeBlog}) => {
@@ -7,7 +8,7 @@ const BlogDetailed = ({blog, swap, setBlogLikes, blogLikes, removeBlog}) => {
     const blogStyle = {
         paddingTop: 10,
         paddingLeft: 2,
-        border: 'solid',
+        border: "solid",
         borderWidth: 1,
         marginBottom: 5
     }
@@ -29,7 +30,7 @@ const BlogDetailed = ({blog, swap, setBlogLikes, blogLikes, removeBlog}) => {
         <div style={blogStyle}>
             <p>
                 {blog.title}
-                <button onClick={swap}>View</button>
+                <button onClick={swap}>Hide</button>
             </p>
             <p>{blog.url}</p>
             <p>
@@ -40,6 +41,14 @@ const BlogDetailed = ({blog, swap, setBlogLikes, blogLikes, removeBlog}) => {
             <button onClick={() => removeBlog(blog)}>Remove</button>
         </div>
     )
+}
+
+BlogDetailed.propTypes = {
+    blog: PropTypes.string.isRequired,
+    swap: PropTypes.string.isRequired,
+    setBlogLikes: PropTypes.string.isRequired,
+    blogLikes: PropTypes.string.isRequired,
+    removeBlog: PropTypes.string.isRequired,
 }
 
 

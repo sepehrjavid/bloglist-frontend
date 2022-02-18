@@ -1,6 +1,6 @@
-import React from 'react'
-import loginService from '../services/login'
-import blogService from "../services/blogs";
+import React from "react"
+import loginService from "../services/login"
+import blogService from "../services/blogs"
 
 const handleLogin = async (event, username, password, setUsername, setPassword, setUser, setErrorMessage, setMessageClass) => {
     event.preventDefault()
@@ -11,16 +11,16 @@ const handleLogin = async (event, username, password, setUsername, setPassword, 
         })
 
         window.localStorage.setItem(
-            'loggedBlogAppUser', JSON.stringify(user)
+            "loggedBlogAppUser", JSON.stringify(user)
         )
 
         blogService.setToken(user.token)
         setUser(user)
-        setUsername('')
-        setPassword('')
+        setUsername("")
+        setPassword("")
     } catch (exception) {
         setMessageClass("error")
-        setErrorMessage('Wrong credentials')
+        setErrorMessage("Wrong credentials")
         setTimeout(() => {
             setErrorMessage(null)
         }, 5000)

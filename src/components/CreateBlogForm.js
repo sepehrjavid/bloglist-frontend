@@ -1,11 +1,11 @@
-import React, {useState} from 'react'
-import blogService from "../services/blogs";
+import React, {useState} from "react"
+import blogService from "../services/blogs"
 
 
 const CreatBlogForm = ({blogFormRef, setBlogs, blogs, setMessageClass, setErrorMessage}) => {
-    const [title, setTitle] = useState('')
-    const [author, setAuthor] = useState('')
-    const [url, setUrl] = useState('')
+    const [title, setTitle] = useState("")
+    const [author, setAuthor] = useState("")
+    const [url, setUrl] = useState("")
 
 
     const addBlog = async (event) => {
@@ -20,9 +20,9 @@ const CreatBlogForm = ({blogFormRef, setBlogs, blogs, setMessageClass, setErrorM
 
             blogFormRef.current.toggleVisibility()
             setBlogs(blogs.concat(newBlog))
-            setTitle('')
-            setAuthor('')
-            setUrl('')
+            setTitle("")
+            setAuthor("")
+            setUrl("")
             setMessageClass("message")
             setErrorMessage(`${newBlog.title} was created!`)
             setTimeout(() => {
@@ -30,7 +30,7 @@ const CreatBlogForm = ({blogFormRef, setBlogs, blogs, setMessageClass, setErrorM
             }, 5000)
         } catch (exception) {
             setMessageClass("error")
-            setErrorMessage('Something went wrong!')
+            setErrorMessage("Something went wrong!")
             setTimeout(() => {
                 setErrorMessage(null)
             }, 5000)

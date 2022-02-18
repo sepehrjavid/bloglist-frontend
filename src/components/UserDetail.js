@@ -1,7 +1,7 @@
-import React from 'react'
+import React from "react"
 
 const logout = (setUser) => {
-    window.localStorage.removeItem('loggedBlogAppUser')
+    window.localStorage.removeItem("loggedBlogAppUser")
     setUser(null)
 }
 
