@@ -29,6 +29,7 @@ const handleLogin = async (event, username, password, setUsername, setPassword, 
 
 const LoginForm = ({username, password, setUsername, setPassword, setUser, setErrorMessage, setMessageClass}) => (
     <form
+        id='loginForm'
         onSubmit={(e) => handleLogin(e, username, password, setUsername, setPassword, setUser, setErrorMessage, setMessageClass)}>
         <div>
             username

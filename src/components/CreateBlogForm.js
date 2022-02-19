@@ -1,7 +1,8 @@
 import React, {useState} from "react"
+import blogService from "../services/blogs"
 
 
-const CreatBlogForm = ({blogFormRef, setBlogs, blogs, setMessageClass, setErrorMessage, dummyCreateForTest}) => {
+const CreatBlogForm = ({blogFormRef, setBlogs, blogs, setMessageClass, setErrorMessage}) => {
     const [title, setTitle] = useState("")
     const [author, setAuthor] = useState("")
     const [url, setUrl] = useState("")
@@ -10,35 +11,30 @@ const CreatBlogForm = ({blogFormRef, setBlogs, blogs, setMessageClass, setErrorM
     const addBlog = async (event) => {
         event.preventDefault()
 
-        // try {
-            dummyCreateForTest({
+        try {
+            const newBlog = await blogService.create({
                 title: title,
                 url: url,
                 author: author
             })
-            // const newBlog = await blogService.create({
-            //     title: title,
-            //     url: url,
-            //     author: author
-            // })
 
-        //     blogFormRef.current.toggleVisibility()
-        //     setBlogs(blogs.concat(newBlog))
-        //     setTitle("")
-        //     setAuthor("")
-        //     setUrl("")
-        //     setMessageClass("message")
-        //     setErrorMessage(`${newBlog.title} was created!`)
-        //     setTimeout(() => {
-        //         setErrorMessage(null)
-        //     }, 5000)
-        // } catch (exception) {
-        //     setMessageClass("error")
-        //     setErrorMessage("Something went wrong!")
-        //     setTimeout(() => {
-        //         setErrorMessage(null)
-        //     }, 5000)
-        // }
+            blogFormRef.current.toggleVisibility()
+            setBlogs(blogs.concat(newBlog))
+            setTitle("")
+            setAuthor("")
+            setUrl("")
+            setMessageClass("message")
+            setErrorMessage(`${newBlog.title} was created!`)
+            setTimeout(() => {
+                setErrorMessage(null)
+            }, 5000)
+        } catch (exception) {
+            setMessageClass("error")
+            setErrorMessage("Something went wrong!")
+            setTimeout(() => {
+                setErrorMessage(null)
+            }, 5000)
+        }
     }
 
     return (
