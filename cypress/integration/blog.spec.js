@@ -53,7 +53,7 @@ describe('Blog app', function() {
     })
   })
 
-    describe('When logged in', function() {
+    describe('If a blog exists', function() {
       beforeEach(function () {
         cy.visit('http://localhost:3000')
         cy.get('#username').type('sep')
@@ -67,11 +67,16 @@ describe('Blog app', function() {
         cy.contains('Blog Title was created!')
       })
 
-      it('users can like blogs', function () {
+      it('users can like blog', function () {
         cy.get('#viewButton').click()
-        //const likes = cy.get('#likes')
         cy.contains('Blog Title').get('#likeButton').click()
         cy.get('#likes').contains('1')
+      })
+
+      it('users can delete blog', function () {
+        cy.get('#viewButton').click()
+        cy.contains('Blog Title').get('#removeButton').click()
+        cy.on('windows:confirm', () => true)
       })
     })
 })

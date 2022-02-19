@@ -24,7 +24,7 @@ const BlogDetailed = ({blog, swap, removeBlog, likeBlog}) => {
                 <button onClick={() => likeBlog(blog)} id="likeButton">Like</button>
             </p>
             <p>{blog.author}</p>
-            <button onClick={() => removeBlog(blog)}>Remove</button>
+            <button onClick={() => removeBlog(blog)} id="removeButton">Remove</button>
         </div>
     )
 }
